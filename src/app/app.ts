@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
-import { Formularios } from './formularios/formularios';
+import { Navbar } from './navbar/navbar';
+import { Usuario } from './formularios/usuario/usuario';
 
 @Component({
   selector: 'app-root',
-  imports: [Formularios],
-  templateUrl: './app.html'
+  imports: [RouterOutlet, Navbar, Usuario],
+  templateUrl: './app.html',
+  styleUrl: './app.css',
 })
+
 export class App implements OnInit {
+
   title = 'web-app';
 
   ngOnInit(): void {
     initFlowbite();
   }
+
 }
