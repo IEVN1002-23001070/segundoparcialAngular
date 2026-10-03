@@ -1,0 +1,180 @@
+<style>
+
+.contenedor{
+    width: 800px;
+    margin: 50px auto;
+    display: flex;
+    border: 1px solid rgb(251, 10, 178);
+    padding: 30px;
+    background-color: rgba(206, 61, 172, 0.138);
+}
+
+.izquierda{
+    width: 45%;
+    text-align: center;
+}
+
+.derecha{
+    width: 45%;
+    text-align: center;
+}
+
+.linea{
+    border-left: 3px solid rgb(202, 83, 213);
+    margin: 0 30px;
+}
+
+fieldset{
+    text-align: left;
+    padding: 15px;
+    border: 1px solid rgb(251, 10, 178);
+}
+
+fieldset input{
+    background-color: rgba(255, 171, 252, 0.308);
+    border: 1px solid rgb(202, 83, 213);
+}
+
+legend{
+    text-align: center;
+}
+
+.fecha{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.fecha input{
+    width: 60px;
+}
+
+button{
+    width: 150px;
+    height: 35px;
+    background-color: rgb(255, 171, 252);
+    border: 1px solid rgb(202, 83, 213);
+}
+
+.derecha img{
+    margin-top: 10px;
+}
+
+</style>
+
+
+<div class="contenedor">
+
+    <div class="izquierda">
+
+        <fieldset>
+
+            <legend>Datos Personales</legend>
+
+            <label>Nombre: </label>
+            <input [(ngModel)]="nombre" type="text">
+
+            <br><br>
+
+            <label>Apaterno: </label>
+            <input [(ngModel)]="apellidoP" type="text">
+
+            <br><br>
+
+            <label>Amaterno: </label>
+            <input [(ngModel)]="apellidoM" type="text">
+
+            <br><br>
+
+            <h4>Fecha de nacimiento</h4>
+
+            <div class="fecha">
+
+                <div>
+                    Día
+                    <br>
+                    <input [(ngModel)]="dia" type="number">
+                </div>
+
+                <div>
+                    Mes
+                    <br>
+                    <input [(ngModel)]="mes" type="number">
+                </div>
+
+                <div>
+                    Año
+                    <br>
+                    <input [(ngModel)]="anio" type="number">
+                </div>
+
+            </div>
+
+            <br>
+
+            <label>Sexo:</label>
+
+            <br>
+
+            <input
+                [(ngModel)]="sexo"
+                type="radio"
+                name="sexo"
+                value="Masculino">
+
+            Masculino
+
+            <br>
+
+            <input
+                [(ngModel)]="sexo"
+                type="radio"
+                name="sexo"
+                value="Femenino">
+
+            Femenino
+
+        </fieldset>
+
+        <br>
+
+        <button (click)="imprimir()">
+            Imprimir
+        </button>
+
+    </div>
+
+
+    <div class="linea"></div>
+
+
+    <div class="derecha">
+
+        <div *ngIf="muestraResultado">
+
+            <h2>
+                Hola {{nombre}} {{apellidoP}} {{apellidoM}}
+            </h2>
+
+            <h3>
+                Tienes {{edad}} años
+            </h3>
+
+            <h3>
+                Tu signo zodiacal
+            </h3>
+
+            <img
+                [src]="imagen"
+                [style.width.px]="imageWidth"
+                [style.margin.px]="imageMargin">
+
+            <h3>
+                Es {{signo}}
+            </h3>
+
+        </div>
+
+    </div>
+
+</div>
