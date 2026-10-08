@@ -1,196 +1,121 @@
 <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow">
  
   <h1 class="text-3xl font-bold text-gray-900 mb-6">
-    Lista Alumnos
+    Registro de alumnos
   </h1>
  
-  <form
-  >
+  <form [formGroup]="formulario">
+ 
+    <!-- Matrícula -->
+    <div class="mb-5">
+ 
+      <label
+        for="matricula"
+        class="block mb-2 text-sm font-medium text-gray-900"
+      >
+        Matrícula
+      </label>
+ 
+      <input
+        type="text"
+        id="matricula"
+        formControlName="matricula"
+        required
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Ingresa la matrícula"
+      >
+ 
+    </div>
  
     <!-- Nombre -->
     <div class="mb-5">
  
       <label
-        for="name"
+        for="nombre"
         class="block mb-2 text-sm font-medium text-gray-900"
       >
-        Name
+        Nombre
       </label>
  
       <input
         type="text"
-        id="name"
-        name="name"
+        id="nombre"
         formControlName="nombre"
         required
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder="Enter your name"
+        placeholder="Ingresa el nombre"
       >
- 
-      <!-- Error required -->
-      <div
-        *ngIf="
-          contactForm.get('name')?.touched &&
-          contactForm.get('name')?.errors?.['required']
-        "
-        class="p-4 mt-2 text-sm text-red-800 rounded-lg bg-red-50"
-        role="alert"
-      >
-        This field is required.
-      </div>
- 
-      <!-- Error minlength -->
-      <div
-        *ngIf="
-          contactForm.get('name')?.touched &&
-          contactForm.get('name')?.errors?.['minlength']
-        "
-        class="p-4 mt-2 text-sm text-red-800 rounded-lg bg-red-50"
-        role="alert"
-      >
-        Name must be longer than
-        {{
-          contactForm.get('name')?.errors?.['minlength']?.requiredLength
-        }}
-        characters.
-      </div>
  
     </div>
  
- 
-    <!-- Mayor de edad -->
-    <div class="mb-5">
- 
-      <div class="flex items-center">
- 
-        <input
-          type="checkbox"
-          id="checkAdult"
-          name="checkAdult"
-          formControlName="checkAdult"
-          required
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300
-                 rounded focus:ring-blue-500 focus:ring-2"
-        >
- 
-        <label
-          for="checkAdult"
-          class="ms-2 text-sm font-medium text-gray-900"
-        >
-          Are you over 18 years of age?
-        </label>
- 
-      </div>
- 
-      <!-- Error checkbox -->
-      <div
-        *ngIf="
-          contactForm.get('checkAdult')?.touched &&
-          contactForm.get('checkAdult')?.errors?.['required']
-        "
-        class="p-4 mt-2 text-sm text-red-800 rounded-lg bg-red-50"
-        role="alert"
-      >
-        This field is required.
-      </div>
- 
-    </div>
- 
- 
-    <!-- Departamento -->
+    <!-- Correo -->
     <div class="mb-5">
  
       <label
-        for="department"
+        for="correo"
         class="block mb-2 text-sm font-medium text-gray-900"
       >
-        Department
+        Correo
       </label>
  
-      <select
-        id="department"
-        name="department"
-        formControlName="department"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-               rounded-lg focus:ring-blue-500 focus:border-blue-500
-               block w-full p-2.5"
-      >
- 
-        <option value="" disabled>
-          Open this select menu
-        </option>
- 
-        <option value="marketing">
-          Marketing
-        </option>
- 
-        <option value="sales">
-          Sales
-        </option>
- 
-        <option value="other">
-          Other
-        </option>
- 
-      </select>
- 
-    </div>
- 
- 
-    <!-- Comentario -->
-    <div class="mb-5">
- 
-      <label
-        for="comment"
-        class="block mb-2 text-sm font-medium text-gray-900"
-      >
-        Comment
-      </label>
- 
-      <textarea
-        id="comment"
-        name="comment"
-        rows="4"
-        formControlName="comment"
+      <input
+        type="email"
+        id="correo"
+        formControlName="correo"
         required
-        placeholder="Leave a comment..."
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50
-               rounded-lg border border-gray-300
-               focus:ring-blue-500 focus:border-blue-500"
-      ></textarea>
- 
-      <!-- Error required -->
-      <div
-        *ngIf="
-          contactForm.get('comment')?.touched &&
-          contactForm.get('comment')?.errors?.['required']
-        "
-        class="p-4 mt-2 text-sm text-red-800 rounded-lg bg-red-50"
-        role="alert"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Ingresa el correo"
       >
-        This field is required.
-      </div>
  
+    </div>
  
-      <!-- Botón -->
-      <div class="flex justify-end mt-5">
+    <!-- Materia -->
+    <div class="mb-5">
  
-        <button
-          type="submit"
-         
-          class="text-white bg-blue-700 hover:bg-blue-800
-                 focus:ring-4 focus:outline-none focus:ring-blue-300
-                 font-medium rounded-lg text-sm px-5 py-2.5
-                 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Send
-        </button>
+      <label
+        for="materia"
+        class="block mb-2 text-sm font-medium text-gray-900"
+      >
+        Materia
+      </label>
  
-      </div>
+      <input
+        type="text"
+        id="materia"
+        formControlName="materia"
+        required
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Ingresa la materia"
+      >
+ 
+    </div>
+ 
+    <!-- Botón Registrar -->
+    <div class="flex justify-end mt-5">
+ 
+      <button
+        type="submit"
+        (click)="muestraAlumnos()"
+        class="text-white bg-blue-700 hover:bg-blue-800
+               focus:ring-4 focus:outline-none focus:ring-blue-300
+               font-medium rounded-lg text-sm px-5 py-2.5"
+      >
+        Registrar
+      </button>
  
     </div>
  
   </form>
+
+  <h1>Lista alumnos</h1>
+  <h2>Matricula: {{nuevoAlumno.matricula}}</h2>
+  <h2>Nombre: {{nuevoAlumno.nombre}}</h2>
+  <h2>Correo: {{nuevoAlumno.correo}}</h2>
+  <h2>Materia: {{nuevoAlumno.materia}}</h2>
  
 </div>
+ 
