@@ -1,0 +1,11 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.contenido-principal {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}

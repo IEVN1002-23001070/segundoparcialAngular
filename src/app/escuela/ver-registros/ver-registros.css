@@ -1,0 +1,23 @@
+
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+input,
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

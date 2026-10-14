@@ -1,54 +1,17 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
+import { Cinepolis } from './escuela/cinepolis/cinepolis';
+import { VerRegistros } from './escuela/ver-registros/ver-registros';
 
 export const routes: Routes = [
-  {
-    path: "formularios",
-    children: [
-      {
-        path: "usuarios",
-        loadComponent: () =>
-          import("./formularios/usuario/usuario").then(
-            (c) => c.Usuario
-          ),
-      },
-      {
-        path: "zodiaco",
-        loadComponent: () =>
-          import("./formularios/zodiaco/zodiaco").then(
-            (c) => c.Zodiaco
-          ),
-      },
-    ],
-  },
+  // Conserva aquí tus rutas actuales de Zodiaco,
+  // Usuarios y ListaAlumnos.
 
   {
-    path: "escuela",
-    children: [
-      {
-        path: "ListaAlumnos",
-        loadComponent: () =>
-          import("./escuela/lista-alumnos/lista-alumnos").then(
-            (c) => c.ListaAlumnos
-          ),
-      },
-      {
-        path: "cinepolis",
-        loadComponent: () =>
-          import("./escuela/cinepolis/cinepolis").then(
-            (c) => c.Cinepolis
-          ),
-      },
-    ],
+    path: 'escuela/cinepolis',
+    component: Cinepolis
   },
-
   {
-    path: "",
-    redirectTo: "admin",
-    pathMatch: "full",
-  },
-
-  {
-    path: "**",
-    redirectTo: "admin",
-  },
+    path: 'escuela/ver-registros',
+    component: VerRegistros
+  }
 ];

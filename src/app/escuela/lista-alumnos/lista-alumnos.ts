@@ -1,26 +1,27 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-
-export interface IAlumnos {
-  matricula: string;
-  nombre: string;
-  correo: string;
-  materia: string;
-}
+import { CommonModule } from '@angular/common';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
+import { IAlumnos } from '../alumnos';
 
 @Component({
   selector: 'app-listaAlumnos',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './lista-alumnos.html'
 })
 export class ListaAlumnos implements OnInit {
 
   formulario!: FormGroup;
 
-  alumnos: IAlumnos[] = []
-  indiceEdicion=-1
+  alumnos: IAlumnos[] = [];
+
+  indiceEdicion = -1;
 
   nuevoAlumno: IAlumnos = {
     matricula: '',
@@ -30,83 +31,145 @@ export class ListaAlumnos implements OnInit {
   };
 
   ngOnInit(): void {
-    this.cargarAlumnos()
+
     this.formulario = new FormGroup({
       matricula: new FormControl(''),
       nombre: new FormControl(''),
       correo: new FormControl(''),
       materia: new FormControl('')
     });
+
+    this.cargarAlumnos();
   }
-  agregarAlumno():void{
-    if(
-      this.nuevoAlumno.matricula == '' ||
-      this.nuevoAlumno.nombre == '' ||
-      this.nuevoAlumno.correo == '' ||
-      this.nuevoAlumno.materia == ''
+
+  muestraAlumnos(): void {
+
+    this.nuevoAlumno = {
+      matricula: this.formulario.value.matricula ?? '',
+      nombre: this.formulario.value.nombre ?? '',
+      correo: this.formulario.value.correo ?? '',
+      materia: this.formulario.value.materia ?? ''
+    };
+
+    this.agregarAlumno();
+  }
+
+  agregarAlumno(): void {
+
+    if (
+      !this.nuevoAlumno.matricula.trim() ||
+      !this.nuevoAlumno.nombre.trim() ||
+      !this.nuevoAlumno.correo.trim() ||
+      !this.nuevoAlumno.materia.trim()
     ) {
-      alert('Todos los campos son obligaorios');
+      alert('Todos los campos son obligatorios');
       return;
     }
-  if(this.indiceEdicion !== -1){
-    this.alumnos[this.indiceEdicion]={
-      ...this.nuevoAlumno
+
+    if (this.indiceEdicion !== -1) {
+
+      this.alumnos[this.indiceEdicion] = {
+        ...this.nuevoAlumno
+      };
+
+    } else {
+
+      this.alumnos.push({
+        ...this.nuevoAlumno
+      });
+
     }
-  }else{
-    this.alumnos.push({...this.nuevoAlumno})
-  }
-  localStorage.setItem(
-    'alumnos',
-    JSON.stringify(this.alumnos)
-  )
-  this.limpiarCampos()
+
+    this.guardarAlumnos();
+    this.limpiarCampos();
   }
 
-  muestraAlumnos():void{
-    this.nuevoAlumno.matricula=this.formulario.value.matricula
-    this.nuevoAlumno.nombre=this.formulario.value.nombre
-    this.nuevoAlumno.correo=this.formulario.value.correo
-    this.nuevoAlumno.materia=this.formulario.value.materia
-    this.agregarAlumno()
-  }
-  cargarAlumnos(): void{
-    const datos = localStorage.getItem('alumnos');
+  guardarAlumnos(): void {
 
-    if (datos) {
-      this.alumnos = JSON.parse(datos);
-    }
-  }
-
-  editarAlumnos(index:number):void{
-    this.nuevoAlumno={
-      ...this.alumnos[index]
-    }
-    const alumno=this.alumnos[index]
-    this.formulario.patchValue({
-      matricula: alumno.matricula,
-      nombre:alumno.nombre,
-      correo:alumno.correo,
-      materia:alumno.materia
-    })
-
-    this.indiceEdicion=index
-  }
-
-  eliminarAlumno(index: number): void{
-    this.alumnos.splice(index,1)
     localStorage.setItem(
       'alumnos',
       JSON.stringify(this.alumnos)
-    )
+    );
+
   }
-  
-  limpiarCampos():void{
+
+  cargarAlumnos(): void {
+
+    const datos = localStorage.getItem('alumnos');
+
+    if (datos) {
+
+      try {
+        this.alumnos = JSON.parse(datos);
+      } catch {
+        alert('No se pudieron cargar los alumnos guardados');
+        this.alumnos = [];
+      }
+
+    } else {
+
+      this.alumnos = [];
+
+    }
+
+  }
+
+  editarAlumnos(index: number): void {
+
+    const alumno = this.alumnos[index];
+
+    if (!alumno) {
+      return;
+    }
+
+    this.nuevoAlumno = {
+      ...alumno
+    };
+
+    this.formulario.patchValue({
+      matricula: alumno.matricula,
+      nombre: alumno.nombre,
+      correo: alumno.correo,
+      materia: alumno.materia
+    });
+
+    this.indiceEdicion = index;
+  }
+
+  eliminarAlumno(index: number): void {
+
+    this.alumnos.splice(index, 1);
+
+    if (this.indiceEdicion === index) {
+
+      this.limpiarCampos();
+
+    } else if (this.indiceEdicion > index) {
+
+      this.indiceEdicion--;
+
+    }
+
+    this.guardarAlumnos();
+  }
+
+  limpiarCampos(): void {
+
     this.nuevoAlumno = {
       matricula: '',
       nombre: '',
       correo: '',
       materia: ''
-    }
-    this.indiceEdicion=-1
+    };
+
+    this.formulario.reset({
+      matricula: '',
+      nombre: '',
+      correo: '',
+      materia: ''
+    });
+
+    this.indiceEdicion = -1;
   }
+
 }

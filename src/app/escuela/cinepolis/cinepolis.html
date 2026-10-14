@@ -1,67 +1,148 @@
 
-<div class="min-h-screen bg-gray-100 p-6">
-  <div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6">
+<div class="min-h-screen bg-blue-50 px-4 py-8">
+  <div class="mx-auto max-w-2xl rounded-2xl border border-blue-200 bg-white p-6 shadow-lg sm:p-8">
 
-    <h1 class="text-3xl font-bold text-blue-800 text-center mb-2">
-      Cinépolis
-    </h1>
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-extrabold text-blue-950 sm:text-4xl">
+        Cinépolis
+      </h1>
+      <p class="mt-2 text-sm text-blue-600">
+        Sistema de compra de boletos
+      </p>
+      <div class="mx-auto mt-4 h-1 w-24 rounded-full bg-blue-600"></div>
+    </div>
 
-    <p class="text-gray-500 text-center mb-6">Compra de boletos</p>
+    <form [formGroup]="datos" (ngSubmit)="procesar()">
 
-    <form [formGroup]="datos">
+      <fieldset class="mb-6 rounded-xl border border-blue-200 p-5">
+        <legend class="px-2 text-lg font-bold text-blue-900">
+          Datos de la compra
+        </legend>
 
-      <div class="grid md:grid-cols-2 gap-6">
-
-        <div class="border rounded-lg p-4">
-          <h2 class="text-xl font-bold text-blue-800 mb-4">Entradas</h2>
-
-          <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-          <input type="text" formControlName="nombre"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg w-full p-2 mb-4">
-
-          <label class="block mb-2 text-sm font-medium text-gray-900">Cantidad de personas</label>
-          <input type="number" formControlName="personas" min="1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg w-full p-2 mb-4">
-
-          <label class="block mb-2 text-sm font-medium text-gray-900">Tarjeta CINECO</label>
-          <label class="mr-4">
-            <input type="radio" formControlName="tarjeta" value="si"> Sí
+        <div class="mb-5">
+          <label for="nombre"
+            class="mb-2 block text-sm font-semibold text-blue-950">
+            Nombre del cliente
           </label>
-          <label>
-            <input type="radio" formControlName="tarjeta" value="no"> No
-          </label>
-
-          <label class="block mt-4 mb-2 text-sm font-medium text-gray-900">Cantidad de boletos</label>
-          <input type="number" formControlName="boletos" min="1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg w-full p-2">
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            placeholder="Escribe tu nombre"
+            class="block w-full rounded-lg border border-blue-300 bg-blue-50 p-3 text-sm text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:ring-blue-600">
         </div>
 
-        <div class="border rounded-lg p-4">
-          <h2 class="text-xl font-bold text-blue-800 mb-4">Salidas</h2>
+        <div class="mb-5">
+          <label for="personas"
+            class="mb-2 block text-sm font-semibold text-blue-950">
+            Cantidad de personas
+          </label>
+          <input
+            id="personas"
+            type="number"
+            min="1"
+            step="1"
+            formControlName="personas"
+            placeholder="Ingresa la cantidad de personas"
+            class="block w-full rounded-lg border border-blue-300 bg-blue-50 p-3 text-sm text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:ring-blue-600">
+        </div>
 
-          <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-          <input type="text" [value]="datos.value.nombre" readonly
-            class="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg w-full p-2 mb-5">
+        <div class="mb-5">
+          <p class="mb-3 text-sm font-semibold text-blue-950">
+            ¿Tienes tarjeta CINECO?
+          </p>
 
-          <label class="block mb-2 text-sm font-medium text-gray-900">Valor a pagar</label>
-          <div class="bg-blue-800 text-white text-2xl font-bold text-center rounded-lg p-4">
-            ${{ totalPagar.toFixed(2) }}
+          <div class="flex gap-8">
+            <label class="flex cursor-pointer items-center gap-2 text-sm text-blue-900">
+              <input
+                type="radio"
+                formControlName="tarjeta"
+                value="si"
+                class="h-4 w-4 border-blue-300 text-blue-700 focus:ring-blue-500">
+              Sí
+            </label>
+
+            <label class="flex cursor-pointer items-center gap-2 text-sm text-blue-900">
+              <input
+                type="radio"
+                formControlName="tarjeta"
+                value="no"
+                class="h-4 w-4 border-blue-300 text-blue-700 focus:ring-blue-500">
+              No
+            </label>
           </div>
         </div>
 
-      </div>
+        <div>
+          <label for="boletos"
+            class="mb-2 block text-sm font-semibold text-blue-950">
+            Cantidad de boletos
+          </label>
+          <input
+            id="boletos"
+            type="number"
+            min="1"
+            step="1"
+            formControlName="boletos"
+            placeholder="Ingresa la cantidad de boletos"
+            class="block w-full rounded-lg border border-blue-300 bg-blue-50 p-3 text-sm text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:ring-blue-600">
 
-      <div class="mt-6 border rounded-lg p-4 text-center">
-        <h2 class="text-xl font-bold text-blue-800 mb-4">Acciones</h2>
+          <p class="mt-2 text-xs text-blue-600">
+            Cada boleto cuesta $12. Se permiten máximo 7 boletos por persona.
+          </p>
+        </div>
+      </fieldset>
 
-        <button type="button" (click)="procesar()"
-          class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2 mr-2">
+      <fieldset class="mb-6 rounded-xl border border-blue-200 bg-blue-50 p-5">
+        <legend class="px-2 text-lg font-bold text-blue-900">
+          Resultado de la compra
+        </legend>
+
+        <p class="mb-3 text-sm text-blue-900">
+          <span class="font-semibold">Cliente:</span>
+          {{ datos.value.nombre || 'Sin ingresar' }}
+        </p>
+
+        <p class="mb-3 text-sm text-blue-900">
+          <span class="font-semibold">Precio por boleto:</span>
+          {{ 12 | currency:'MXN':'symbol':'1.2-2' }}
+        </p>
+
+        <p class="text-sm text-blue-900">
+          <span class="font-semibold">Total a pagar:</span>
+        </p>
+
+        <p class="mt-1 text-3xl font-extrabold text-blue-800">
+          {{ totalPagar | currency:'MXN':'symbol':'1.2-2' }}
+        </p>
+
+        @if (mensaje) {
+          <div
+            class="mt-4 rounded-lg border p-4 text-sm font-medium"
+            [class.border-red-300]="tipoMensaje === 'error'"
+            [class.bg-red-50]="tipoMensaje === 'error'"
+            [class.text-red-800]="tipoMensaje === 'error'"
+            [class.border-blue-300]="tipoMensaje === 'exito'"
+            [class.bg-blue-100]="tipoMensaje === 'exito'"
+            [class.text-blue-900]="tipoMensaje === 'exito'"
+            role="alert">
+            {{ mensaje }}
+          </div>
+        }
+      </fieldset>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <button
+          type="submit"
+          class="rounded-lg bg-blue-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
           Procesar
         </button>
 
-        <button type="button" (click)="salir()"
-          class="text-gray-900 bg-gray-200 hover:bg-gray-300 rounded-lg px-5 py-2">
-          Salir
+        <button
+          type="button"
+          (click)="verRegistros()"
+          class="rounded-lg border border-blue-700 bg-white px-6 py-3 text-sm font-semibold text-blue-800 transition hover:bg-blue-100 focus:outline-none focus:ring-4 focus:ring-blue-200">
+          Ver registros
         </button>
       </div>
 
