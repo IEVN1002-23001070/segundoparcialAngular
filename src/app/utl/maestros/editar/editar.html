@@ -1,0 +1,131 @@
+
+<div class="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow-md p-6">
+
+  <h2 class="text-xl font-semibold text-gray-900 mb-6">
+    Modificar Maestro
+  </h2>
+
+  <p *ngIf="cargando" class="text-gray-600 mb-4">
+    Cargando información del maestro...
+  </p>
+
+  <form
+    [formGroup]="formulario"
+    (ngSubmit)="onSubmit()"
+    class="space-y-5">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+      <!-- ID Maestro: no se puede modificar -->
+      <div>
+        <label
+          for="idmaestro-editar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          ID Maestro
+        </label>
+
+        <input
+          type="number"
+          id="idmaestro-editar"
+          formControlName="idmaestro"
+          class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"/>
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label
+          for="nombre-editar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Nombre
+        </label>
+
+        <input
+          type="text"
+          id="nombre-editar"
+          formControlName="nombre"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Apellido paterno -->
+      <div>
+        <label
+          for="apaterno-editar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido paterno
+        </label>
+
+        <input
+          type="text"
+          id="apaterno-editar"
+          formControlName="apaterno"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Apellido materno -->
+      <div>
+        <label
+          for="amaterno-editar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido materno
+        </label>
+
+        <input
+          type="text"
+          id="amaterno-editar"
+          formControlName="amaterno"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Correo -->
+      <div class="md:col-span-2">
+        <label
+          for="correo-editar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Correo electrónico
+        </label>
+
+        <input
+          type="email"
+          id="correo-editar"
+          formControlName="correo"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
+      </div>
+
+    </div>
+
+    <!-- Validaciones -->
+    <p
+      *ngIf="formulario.invalid && formulario.touched"
+      class="text-sm text-red-600">
+      Revisa los campos obligatorios y el formato del correo.
+    </p>
+
+    <!-- Error -->
+    <p *ngIf="mensaje" class="text-sm text-red-600">
+      {{ mensaje }}
+    </p>
+
+    <!-- Botones -->
+    <div class="flex flex-wrap gap-3 pt-3">
+
+      <button
+        type="submit"
+        [disabled]="formulario.invalid || cargando || guardando || !maestroCargado"
+        class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 disabled:opacity-50">
+
+        {{ guardando ? 'Guardando...' : 'Modificar' }}
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/utl/maestros']"
+        [disabled]="guardando"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 disabled:opacity-50">
+
+        Cancelar
+      </button>
+
+    </div>
+
+  </form>
+</div>

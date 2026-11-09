@@ -1,0 +1,134 @@
+
+<div class="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow-md p-6">
+
+  <h2 class="text-xl font-semibold text-gray-900 mb-6">
+    Registrar Nuevo Maestro
+  </h2>
+
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="space-y-5">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+      <!-- ID Maestro -->
+      <div>
+        <label
+          for="idmaestro-agregar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          ID Maestro
+        </label>
+
+        <input
+          type="number"
+          id="idmaestro-agregar"
+          min="1"
+          step="1"
+          formControlName="idmaestro"
+          placeholder="Ingrese ID del maestro"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label
+          for="nombre-agregar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Nombre
+        </label>
+
+        <input
+          type="text"
+          id="nombre-agregar"
+          formControlName="nombre"
+          placeholder="Ingrese nombre"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Apellido paterno -->
+      <div>
+        <label
+          for="apaterno-agregar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido paterno
+        </label>
+
+        <input
+          type="text"
+          id="apaterno-agregar"
+          formControlName="apaterno"
+          placeholder="Ingrese apellido paterno"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Apellido materno -->
+      <div>
+        <label
+          for="amaterno-agregar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido materno
+        </label>
+
+        <input
+          type="text"
+          id="amaterno-agregar"
+          formControlName="amaterno"
+          placeholder="Ingrese apellido materno"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+      </div>
+
+      <!-- Correo -->
+      <div class="md:col-span-2">
+        <label
+          for="correo-agregar"
+          class="block mb-2 text-sm font-medium text-gray-900">
+          Correo electrónico
+        </label>
+
+        <input
+          type="email"
+          id="correo-agregar"
+          formControlName="correo"
+          placeholder="Ingrese correo electrónico"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
+      </div>
+
+    </div>
+
+    <!-- Mensaje de validación -->
+    <p
+      *ngIf="formGroup.invalid && formGroup.touched"
+      class="text-sm text-red-600">
+      Completa todos los campos y verifica el formato del correo.
+    </p>
+
+    <!-- Error de la API -->
+    <p *ngIf="mensaje" class="text-sm text-red-600">
+      {{ mensaje }}
+    </p>
+
+    <!-- Botones -->
+    <div class="flex flex-wrap gap-3 pt-3">
+
+      <button
+        type="submit"
+        [disabled]="formGroup.invalid || guardando"
+        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 disabled:opacity-50">
+
+        {{ guardando ? 'Guardando...' : 'Agregar' }}
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/utl/maestros']"
+        [disabled]="guardando"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 disabled:opacity-50">
+
+        Cancelar
+      </button>
+
+    </div>
+
+  </form>
+</div>
